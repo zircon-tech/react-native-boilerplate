@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-import colors from '../../configs/colors';
+import colors from '../../../configs/colors';
 
 const Button = props => {
   // Props

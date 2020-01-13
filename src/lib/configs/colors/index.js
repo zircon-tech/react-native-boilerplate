@@ -1,5 +1,6 @@
-import * as buttons from './buttons';
+import * as button from './button';
+import * as input from './input';
 
-const combined = {...buttons};
+const combined = {...button, ...input};
 
 export default combined;
