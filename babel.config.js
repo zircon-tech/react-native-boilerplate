@@ -6,6 +6,7 @@ const commonPlugins = [
       alias: {
         utils: './src/lib/utils',
         configs: './src/lib/configs',
+        components: './src/lib/components',
       },
     },
   ],
