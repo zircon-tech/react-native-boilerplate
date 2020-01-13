@@ -21,12 +21,14 @@ const SignIn = props => {
         <Button
           title="Forgot Password"
           action={() => navigation.navigate('ForgotPassword')}
+          transparent
         />
       </View>
       <View style={styles.buttonContainer}>
         <Button
           title="Reset Password"
           action={() => navigation.navigate('ResetPassword')}
+          transparent
         />
       </View>
       <View style={styles.buttonContainer}>
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonContainer: {
-    marginVertical: 20,
+    marginVertical: 7,
   },
   title: {
     fontSize: 36,
