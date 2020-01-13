@@ -12,25 +12,25 @@ const SignIn = props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>SignIn</Text>
-      <View style={styles.formContainer}>
-
-      </View>
+      <View style={styles.formContainer}></View>
       <View style={styles.buttonContainer}>
         <Button
           title="Forgot Password"
-          onPress={() => navigation.navigate('ForgotPassword')}
+          action={() => navigation.navigate('ForgotPassword')}
         />
       </View>
       <View style={styles.buttonContainer}>
         <Button
           title="Reset Password"
-          onPress={() => navigation.navigate('ResetPassword')}
+          action={() => navigation.navigate('ResetPassword')}
         />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Onboarding')}>
-          <Text>Register</Text>
-        </TouchableOpacity>
+        <Button
+          title="Register"
+          action={() => navigation.navigate('Onboarding')}
+          transparent
+        />
       </View>
     </View>
   );
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   formContainer: {
     backgroundColor: 'red',
     paddingVertical: 30,
-  }
+  },
 });
 
 export default SignIn;

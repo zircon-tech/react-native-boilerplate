@@ -5,7 +5,7 @@ import colors from '../../configs/colors';
 
 const Button = props => {
   // Props
-  const {title, action} = props;
+  const {title, action, transparent } = props;
 
   // Hooks
   // const [ newState, setNewState ] = useState( null );
@@ -13,12 +13,17 @@ const Button = props => {
   // Mount
   useEffect(() => {}, []);
 
+  // Variables
+  const backgroundColor = transparent ? null : colors.buttonBackground;
+  const color = transparent ? "#333" : colors.buttonText;
+
+
   // Render
   return (
     <TouchableOpacity
-      style={styles.buttonStyle}
+      style={[styles.buttonStyle, {backgroundColor}]}
       onPress={action}>
-        <Text style={styles.buttonText}>{ title }</Text>
+        <Text style={[styles.buttonText, {color}]}>{ title }</Text>
       </TouchableOpacity>
   );
 };
@@ -27,9 +32,8 @@ const styles = StyleSheet.create({
   buttonStyle: {
     padding: 12,
     borderRadius: 10,
-    backgroundColor: colors.buttonBackground,
   },
-  buttonText: {color: colors.buttonText},
+  buttonText: {},
 });
 
 export default Button;
