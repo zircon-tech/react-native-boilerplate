@@ -5,10 +5,12 @@ import colors from '../../../configs/colors';
 
 const Input = props => {
   // Props
-  const {placeholder, initialValue = '', password = false} = props;
-
-  // Hooks
-  const [text, setText] = useState(initialValue);
+  const {
+    placeholder,
+    password = false,
+    onChangeText,
+    value,
+  } = props;
 
   // Render
   return (
@@ -16,8 +18,8 @@ const Input = props => {
       placeholder={placeholder}
       secureTextEntry={password}
       style={styles.inputStyle}
-      onChangeText={text => setText(text)}
-      value={text}
+      onChangeText={text => onChangeText(text)}
+      value={value}
     />
   );
 };

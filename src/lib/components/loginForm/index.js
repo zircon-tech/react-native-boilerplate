@@ -6,10 +6,11 @@ import Button from '../components/button';
 
 const Component = props => {
   // Props
-  const {action} = props;
+  const {doLogin} = props;
 
   // Hooks
-  // const [ newState, setNewState ] = useState( null );
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
 
   // Mount
   useEffect(() => {}, []);
@@ -18,17 +19,19 @@ const Component = props => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Input placeholder="User" />
+        <Input placeholder="User" value={user} onChangeText={setUser} />
       </View>
       <View style={styles.inputContainer}>
-        <Input placeholder="Password" password />
+        <Input
+          placeholder="Password"
+          password
+          value={password}
+          onChangeText={setPassword}
+        />
       </View>
 
       <View style={[styles.inputContainer, styles.loginButton]}>
-        <Button
-          title="Login"
-          action={() => alert("Login!")}
-        />
+        <Button title="Login" action={() => doLogin(user, password)} />
       </View>
     </View>
   );
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   loginButton: {
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
 });
 
