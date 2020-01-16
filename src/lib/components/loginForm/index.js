@@ -29,7 +29,7 @@ const Component = props => {
 
       <View style={[styles.inputContainer, styles.loginButton]}>
         <Button
-          title={"Login"}
+          title={'Login'}
           loading={login.loading}
           action={() => doLogin(user, password)}
         />
