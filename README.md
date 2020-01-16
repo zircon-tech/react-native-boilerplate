@@ -5,7 +5,17 @@ React Native Boillerplate
 
 This is a React Native Boillerplate with custom components and login function with redux.
 
-# Libraries
+# Dependencies
+
+* [axios](https://github.com/axios/axios)
+* [react-native-config](https://github.com/luggit/react-native-config)
+* [react-native-gesture-handler](https://github.com/software-mansion/react-native-gesture-handler)
+* [react-native-safe-area-context](https://github.com/th3rdwave/react-native-safe-area-context)
+* [react-native-screens](https://github.com/kmagiera/react-native-screens)
+* [react-navigation](https://github.com/react-navigation/react-navigation)
+* [react-redux](https://github.com/reduxjs/react-redux)
+* [redux](https://github.com/reduxjs/redux)
+* [redux-thunk](https://github.com/reduxjs/redux-thunk)
 
 # Structure
 
