@@ -3,7 +3,29 @@ React Native Boillerplate
 
 # Overview
 
-This is a React Native Boillerplate with custom components and login function.
+This is a React Native Boillerplate with custom components and login function with redux.
+
+# Libraries
+
+# Structure
+
+## Views
+Redux connected. Group of components that make up a screen.
+
+## Services
+API calls, push notifications and everything that comes from outside.
+
+## Lib
+Generic components, config variables and generic methods.
+
+## Redux
+Everything related to redux, actions, reducers, stores and types.
+
+## Res
+All application texts in their language variations, colors and assets (images, fonts, etc.).
+
+## Navigation
+Everything related to navigation within the application with an index containing the main navigation.
 
 # Installation & Usage
 
