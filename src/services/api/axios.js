@@ -1,5 +1,4 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
 import Config from 'react-native-config';
 import {getToken, logOut} from 'utils/auth';
 
@@ -26,8 +25,8 @@ const api_call = async (method, url, requestParams = {}) => {
     const res = await client[method](url, requestParams);
     return res;
   } catch (error) {
-    console.log(error);
-    if (error.response.status === 401) {
+    console.log('ERROR:', error);
+    if (error.response && error.response.status === 401) {
       logOut();
       throw error;
     } else {
