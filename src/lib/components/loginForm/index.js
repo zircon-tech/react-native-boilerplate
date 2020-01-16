@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import Input from '../components/input';
@@ -6,14 +6,11 @@ import Button from '../components/button';
 
 const Component = props => {
   // Props
-  const {doLogin} = props;
+  const {doLogin, login} = props;
 
   // Hooks
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
-
-  // Mount
-  useEffect(() => {}, []);
 
   // Render
   return (
@@ -31,7 +28,11 @@ const Component = props => {
       </View>
 
       <View style={[styles.inputContainer, styles.loginButton]}>
-        <Button title="Login" action={() => doLogin(user, password)} />
+        <Button
+          title={"Login"}
+          loading={login.loading}
+          action={() => doLogin(user, password)}
+        />
       </View>
     </View>
   );
