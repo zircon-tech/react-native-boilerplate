@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import * as loginActions from '../../../redux/actions/login';
 
 const Login = props => {
-  const {navigation, do_login} = props;
+  const {navigation, do_login, login} = props;
   // Mount
   useEffect(() => {}, []);
 
@@ -22,7 +22,7 @@ const Login = props => {
     <View style={styles.container}>
       <Text style={styles.title}>SignIn</Text>
       <View style={styles.formContainer}>
-        <LoginForm doLogin={doLogin} />
+        <LoginForm doLogin={doLogin} login={login} />
       </View>
       <View style={styles.buttonContainer}>
         <Button
@@ -72,7 +72,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    login: state.login,
+  };
 };
 
 const mapDispatchToProps = dispatch => {
