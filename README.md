@@ -9,6 +9,8 @@ This is a React Native Boillerplate with custom components and login function wi
 
 # Structure
 
+![Structure](/structure.jpg)
+
 ## Views
 Redux connected. Group of components that make up a screen.
 
