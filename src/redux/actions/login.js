@@ -1,6 +1,6 @@
 import types from '../types';
 import * as userService from '../../services/api/userService';
-import ClientError from '../../Lib/Utils/exceptions';
+import ClientError from '../../lib/utils/exceptions';
 import {setToken} from '../../lib/utils/auth';
 
 const setLoadingAction = () => ({
