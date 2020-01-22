@@ -1,4 +1,8 @@
+import React, {useEffect} from 'react';
+import {Text} from 'react-native';
+
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {connect} from 'react-redux';
 
 import Splash from '../views/screens/splash';
 
@@ -20,4 +24,32 @@ const MainNavigation = createSwitchNavigator(
   },
 );
 
-export default createAppContainer(MainNavigation);
+const AppNavigator = createAppContainer(MainNavigation);
+
+const AppContainer = props => {
+  const {alertObject} = props;
+
+  useEffect(() => {
+    if (alertObject && alertObject.message !== undefined) {
+      alert(alertObject.message);
+    }
+  }, [alertObject]);
+
+  return (
+    <>
+      <AppNavigator />
+    </>
+  );
+};
+
+const mapStateToProps = state => {
+  return {
+    alertObject: state.alert,
+  };
+};
+
+// const mapDispatchToProps = dispatch => {
+//   return {};
+// };
+
+export default connect(mapStateToProps, null)(AppContainer);
