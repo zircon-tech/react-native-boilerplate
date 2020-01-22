@@ -26,8 +26,6 @@ const axiosCall = async (url, {query, ...requestOptions}) => {
       return response;
     }
   } catch (error) {
-    console.log('ERROR:', error);
-    console.log('ERROR RESPONSE STATUS:', error.response.status);
     if (error.response && error.response.status === 401) {
       deleteToken();
       throw error;
