@@ -13,6 +13,11 @@ const login = user => ({
   user,
 });
 
+const loginFail = (error) => ({
+  type: types.LOGIN_FAILED,
+  error,
+});
+
 export const doLogin = (email, password) => dispatch => {
   dispatch(setLoadingAction());
   return userService.login(email, password).then(
@@ -26,6 +31,7 @@ export const doLogin = (email, password) => dispatch => {
       const message =
         error instanceof ClientError ? _message : 'Internal Error';
       dispatch(alertActions.error(message));
+      dispatch(loginFail(error));
     },
   );
 };
