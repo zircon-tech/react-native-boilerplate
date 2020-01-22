@@ -6,6 +6,7 @@ import LoginForm from '../../../lib/components/loginForm';
 
 import {connect} from 'react-redux';
 import * as loginActions from '../../../redux/actions/login';
+import validate from '../../../lib/utils/validate';
 
 const Login = props => {
   const {navigation, do_login, login} = props;
@@ -14,6 +15,13 @@ const Login = props => {
 
   // Methods
   const doLogin = (email, password) => {
+    // Validate email and password
+    const validEmail = validate('email', email);
+    const validPassword = validate('password', password);
+    console.log('=====================');
+    console.log('validEmail', validEmail);
+    console.log('validPassword', validPassword);
+    console.log('=====================');
     do_login(email, password);
   };
 
