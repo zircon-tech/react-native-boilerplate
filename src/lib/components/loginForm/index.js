@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import Input from '../components/input';
@@ -6,28 +6,32 @@ import Button from '../components/button';
 
 const Component = props => {
   // Props
-  const {action} = props;
+  const {doLogin, login} = props;
 
   // Hooks
-  // const [ newState, setNewState ] = useState( null );
-
-  // Mount
-  useEffect(() => {}, []);
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
 
   // Render
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Input placeholder="User" />
+        <Input placeholder="User" value={user} onChangeText={setUser} />
       </View>
       <View style={styles.inputContainer}>
-        <Input placeholder="Password" password />
+        <Input
+          placeholder="Password"
+          password
+          value={password}
+          onChangeText={setPassword}
+        />
       </View>
 
       <View style={[styles.inputContainer, styles.loginButton]}>
         <Button
-          title="Login"
-          action={() => alert("Login!")}
+          title={'Login'}
+          loading={login.loading}
+          action={() => doLogin(user, password)}
         />
       </View>
     </View>
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   loginButton: {
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
 });
 

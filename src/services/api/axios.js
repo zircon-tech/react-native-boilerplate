@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {API_URL, API_KEY} from '../../config';
-import {getToken} from '../../lib/utils/auth';
+import {getToken, deleteToken} from '../../lib/utils/auth';
 import ClientError from '../../lib/utils/exceptions';
 
 const axiosInstance = axios.create({
@@ -25,8 +25,10 @@ const axiosCall = async (url, {query, ...requestOptions}) => {
       return response;
     }
   } catch (error) {
-    if (error.response.status < 500) {
-      throw new ClientError(error.response.data.message, error.response.status);
+    console.log('ERROR:', error);
+    if (error.response && error.response.status === 401) {
+      deleteToken();
+      throw error;
     } else {
       throw new Error('Internal error');
     }
