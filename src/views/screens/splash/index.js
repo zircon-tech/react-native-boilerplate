@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, StatusBar} from 'react-native';
-import {getAuth} from 'utils/auth';
+import {getToken} from '../../../lib/utils/auth';
 import {minSplashTime} from 'configs/splash';
 
 const Splash = props => {
@@ -18,7 +18,7 @@ const Splash = props => {
     const minTime = new Promise(resolve => {
       setTimeout(resolve, minSplashTime);
     });
-    const auth = getAuth();
+    const auth = getToken();
     const {0: authData} = await Promise.all([auth, minTime]);
 
     if (authData) {

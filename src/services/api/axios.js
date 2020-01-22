@@ -1,37 +1,61 @@
 import axios from 'axios';
-import Config from 'react-native-config';
-import {getToken, logOut} from 'utils/auth';
+import {API_URL, API_KEY} from '../../config';
+import {getToken, deleteToken} from '../../lib/utils/auth';
+import ClientError from '../../lib/utils/exceptions';
 
-const {API_URL, API_PORT, API_KEY} = Config;
+const axiosInstance = axios.create({
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    'x-api-key': API_KEY,
+  },
+  validateStatus: status => status < 400,
+});
 
-const api_call = async (method, url, requestParams = {}) => {
+const axiosCall = async (url, {query, ...requestOptions}) => {
   try {
-    const token = await getToken();
-
-    // TODO:
-    // If api call authorization fail, redirect login
-
-    //Needs refactor!
-    const client = axios.create({
-      baseURL: `${API_URL}:${API_PORT}`,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        origin: 'APP',
-        api_key: API_KEY,
-        Authorization: `Bearer ${token}`,
-      },
+    const response = await axiosInstance({
+      method: requestOptions.method,
+      url: encodeQueryParams(`${API_URL}${url}`, query),
+      data: requestOptions.body,
+      headers: requestOptions.headers,
     });
-    const res = await client[method](url, requestParams);
-    return res;
+
+    if (response.status >= 200 && response.status < 400) {
+      return response;
+    }
   } catch (error) {
     console.log('ERROR:', error);
     if (error.response && error.response.status === 401) {
-      logOut();
+      deleteToken();
       throw error;
     } else {
-      throw error;
+      throw new Error('Internal error');
     }
   }
 };
-export default api_call;
+
+const encodeQueryParams = (url, query) => {
+  const encodeURL = new URL(url);
+  // ToDo: Have to agree how to encode null
+  if (query) {
+    Object.entries(query).forEach(([k, v]) => url.searchParams.append(k, v));
+  }
+  return encodeURL;
+};
+
+export const unAuthAxiosCall = async (url, requestOptions) => {
+  const response = await axiosCall(url, requestOptions);
+  return response;
+};
+
+export const authAxiosCall = async (url, requestOptions) => {
+  const response = await axiosCall(url, {
+    ...requestOptions,
+    headers: {
+      ...requestOptions.headers,
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+  return response;
+};
