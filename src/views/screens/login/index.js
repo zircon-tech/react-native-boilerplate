@@ -13,8 +13,8 @@ const Login = props => {
   useEffect(() => {}, []);
 
   // Methods
-  const doLogin = (user, password) => {
-    do_login(user, password);
+  const doLogin = (email, password) => {
+    do_login(email, password);
   };
 
   // Render
@@ -79,8 +79,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    do_login: (user, password) => {
-      dispatch(loginActions.do_login(user, password));
+    do_login: (email, password) => {
+      dispatch(loginActions.doLogin(email, password));
     },
   };
 };
