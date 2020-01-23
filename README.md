@@ -16,6 +16,7 @@ This is a React Native Boillerplate with custom components and login function wi
 * [react-redux](https://github.com/reduxjs/react-redux)
 * [redux](https://github.com/reduxjs/redux)
 * [redux-thunk](https://github.com/reduxjs/redux-thunk)
+* [validate.js](https://github.com/rickharrison/validate.js)
 
 # Structure
 
