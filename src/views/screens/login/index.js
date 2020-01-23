@@ -18,10 +18,6 @@ const Login = props => {
     // Validate email and password
     const valid = validate({email, password});
 
-    console.log('=====================')
-    console.log( 'valid', valid )
-    console.log('=====================')
-
     if (valid === null) {
       do_login(email, password);
     }
