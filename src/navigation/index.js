@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import NavigationService from '../navigation/NavigationServices';
+import {Alert} from 'react-native';
 
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {connect} from 'react-redux';
@@ -9,6 +9,8 @@ import Splash from '../views/screens/splash';
 import MainNavigator from './MainNavigator';
 import LoginNavigator from './LoginNavigator';
 import OnboardingNavigator from './OnboardingNavigator';
+
+import alertActions from '../redux/actions/alert';
 
 const MainNavigation = createSwitchNavigator(
   {
@@ -27,22 +29,22 @@ const MainNavigation = createSwitchNavigator(
 const AppNavigator = createAppContainer(MainNavigation);
 
 const AppContainer = props => {
-  const {alertObject} = props;
+  const {alertObject, alert_clear} = props;
 
   useEffect(() => {
-    if (alertObject && alertObject.message !== undefined) {
-      alert(alertObject.message);
+    if (alertObject && alertObject.message !== null && alertObject.message !== undefined) {
+      Alert.alert(
+        'Error',
+        alertObject.message,
+        [{text: 'OK', onPress: () => alert_clear()}],
+        {cancelable: false},
+      );
     }
   }, [alertObject]);
 
   return (
     <>
-      <AppNavigator
-        ref={nav => {
-          this.navigator = nav;
-          NavigationService.setTopLevelNavigator(nav);
-        }}
-      />
+      <AppNavigator />
     </>
   );
 };
@@ -53,8 +55,12 @@ const mapStateToProps = state => {
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {};
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    alert_clear: () => {
+      dispatch(alertActions.clear());
+    },
+  };
+};
 
-export default connect(mapStateToProps, null)(AppContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

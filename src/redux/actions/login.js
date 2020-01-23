@@ -13,7 +13,7 @@ const login = user => ({
   user,
 });
 
-const loginFail = (error) => ({
+const loginFail = error => ({
   type: types.LOGIN_FAILED,
   error,
 });
@@ -30,8 +30,8 @@ export const doLogin = (email, password) => dispatch => {
       const _message = 'The user or password was incorrect!, please try again.';
       const message =
         error instanceof ClientError ? _message : 'Internal Error';
-      dispatch(alertActions.error(message));
       dispatch(loginFail(error));
+      dispatch(alertActions.error(message));
     },
   );
 };
