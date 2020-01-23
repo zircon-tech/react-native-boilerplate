@@ -1,18 +1,20 @@
 import validatejs from 'validate.js';
 import validations from './validations';
 
-export default validate = (fieldName, value) => {
+export default validate = fields => {
   const formValues = [];
-  formValues[fieldName] = value;
-
   const formFields = [];
-  formFields[fieldName] = validations[fieldName];
 
-  const result = validatejs(formValues, formFields);
+  for (var key in fields) {
+    formValues[key] = fields[key];
+    formFields[key] = validations[key];
+  }
+
+  const result = validatejs(fields, formFields);
 
   if (result) {
-    return result[fieldName][0];
+    return result;
   }
 
   return null;
-}
+};

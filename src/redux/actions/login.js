@@ -2,7 +2,7 @@ import types from '../types';
 import * as userService from '../../services/api/userService';
 import ClientError from '../../lib/utils/exceptions';
 import {setToken} from '../../lib/utils/auth';
-import alertActions from './alert';
+import * as alertActions from './alert';
 
 const setLoadingAction = () => ({
   type: types.LOGIN_SET_LOADING,

@@ -10,7 +10,7 @@ import MainNavigator from './MainNavigator';
 import LoginNavigator from './LoginNavigator';
 import OnboardingNavigator from './OnboardingNavigator';
 
-import alertActions from '../redux/actions/alert';
+import * as alertActions from '../redux/actions/alert';
 
 const MainNavigation = createSwitchNavigator(
   {
