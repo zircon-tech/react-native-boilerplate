@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Text} from 'react-native';
+import NavigationService from '../navigation/NavigationServices';
 
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {connect} from 'react-redux';
@@ -37,7 +37,12 @@ const AppContainer = props => {
 
   return (
     <>
-      <AppNavigator />
+      <AppNavigator
+        ref={nav => {
+          this.navigator = nav;
+          NavigationService.setTopLevelNavigator(nav);
+        }}
+      />
     </>
   );
 };
