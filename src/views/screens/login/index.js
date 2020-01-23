@@ -6,7 +6,7 @@ import LoginForm from '../../../lib/components/loginForm';
 
 import {connect} from 'react-redux';
 import * as loginActions from '../../../redux/actions/login';
-import validate from '../../../lib/utils/validate';
+import validate from 'utils/validate';
 
 const Login = props => {
   const {navigation, do_login, login} = props;
