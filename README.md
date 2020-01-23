@@ -98,7 +98,7 @@ import validate from 'utils/validate';
 const email = 'joaquinb@zircon.tech';
 const password 'super_secret_password';
 ```
-4. Usage validate function with variables as key-value array
+4. Use validate function with variables as key-value array
 ```javascript
 const valid = validate({email, password});
 ```
