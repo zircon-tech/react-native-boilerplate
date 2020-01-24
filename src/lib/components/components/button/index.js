@@ -6,7 +6,7 @@ import colors from '../../../configs/colors';
 
 const Button = props => {
   // Props
-  const {title, action, transparent, loading} = props;
+  const {title, action, transparent, loading, customBackground} = props;
 
   // Hooks
   // const [ newState, setNewState ] = useState( null );
@@ -18,10 +18,16 @@ const Button = props => {
   // Render
   return (
     <TouchableOpacity
-      style={[styles.buttonStyle, {backgroundColor}]}
+      style={[
+        styles.buttonStyle,
+        {
+          backgroundColor: customBackground
+            ? customBackground
+            : backgroundColor,
+        },
+      ]}
       onPress={action}
-      disabled={loading}
-      >
+      disabled={loading}>
       {loading ? (
         <Spinner color={color} />
       ) : (
@@ -36,7 +42,9 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 10,
   },
-  buttonText: {},
+  buttonText: {
+    textAlign: 'center',
+  },
 });
 
 export default Button;
