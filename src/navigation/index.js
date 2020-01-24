@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import {Alert} from 'react-native';
+import React from 'react';
 
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {connect} from 'react-redux';
@@ -9,6 +8,8 @@ import Splash from '../views/screens/splash';
 import MainNavigator from './MainNavigator';
 import LoginNavigator from './LoginNavigator';
 import OnboardingNavigator from './OnboardingNavigator';
+
+import Modal from 'components/components/modal';
 
 import * as alertActions from '../redux/actions/alert';
 
@@ -31,19 +32,18 @@ const AppNavigator = createAppContainer(MainNavigation);
 const AppContainer = props => {
   const {alertObject, alert_clear} = props;
 
-  useEffect(() => {
-    if (alertObject && alertObject.message !== null && alertObject.message !== undefined) {
-      Alert.alert(
-        'Error',
-        alertObject.message,
-        [{text: 'OK', onPress: () => alert_clear()}],
-        {cancelable: false},
-      );
-    }
-  }, [alertObject]);
+  // Methods
+  const modalClose = () => {
+    alert_clear();
+  };
 
   return (
     <>
+      <Modal
+        {...alertObject}
+        visible={alertObject && alertObject.message ? true : false}
+        modalClose={modalClose}
+      />
       <AppNavigator />
     </>
   );
