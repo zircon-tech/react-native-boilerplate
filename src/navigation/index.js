@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import {Alert} from 'react-native';
+import React from 'react';
 
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {connect} from 'react-redux';
