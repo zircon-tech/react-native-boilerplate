@@ -6,10 +6,12 @@ import LoginForm from '../../../lib/components/loginForm';
 
 import {connect} from 'react-redux';
 import * as loginActions from '../../../redux/actions/login';
+import * as alertActions from '../../../redux/actions/alert';
+
 import validate from 'utils/validate';
 
 const Login = props => {
-  const {navigation, do_login, login} = props;
+  const {navigation, do_alert, do_login, login} = props;
   // Mount
   useEffect(() => {}, []);
 
@@ -20,6 +22,9 @@ const Login = props => {
 
     if (valid === null) {
       do_login(email, password);
+    } else {
+      const messages = `${Object.keys(valid).map( e => valid[e] ).flat().join(".\n")}.\n`
+      do_alert(messages);
     }
   };
 
@@ -87,6 +92,9 @@ const mapDispatchToProps = dispatch => {
   return {
     do_login: (email, password) => {
       dispatch(loginActions.doLogin(email, password));
+    },
+    do_alert: message => {
+      dispatch(alertActions.error(message));
     },
   };
 };
