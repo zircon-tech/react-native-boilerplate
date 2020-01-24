@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {API_URL, API_KEY} from '../../config';
 import {getToken, deleteToken} from '../../lib/utils/auth';
-import ClientError from '../../lib/utils/exceptions';
 
 const axiosInstance = axios.create({
   headers: {
@@ -9,6 +8,7 @@ const axiosInstance = axios.create({
     Accept: 'application/json',
     'x-api-key': API_KEY,
   },
+  timeout: 5000,
   validateStatus: status => status < 400,
 });
 
@@ -25,7 +25,6 @@ const axiosCall = async (url, {query, ...requestOptions}) => {
       return response;
     }
   } catch (error) {
-    console.log('ERROR:', error);
     if (error.response && error.response.status === 401) {
       deleteToken();
       throw error;

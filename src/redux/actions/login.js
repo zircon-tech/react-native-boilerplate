@@ -2,6 +2,7 @@ import types from '../types';
 import * as userService from '../../services/api/userService';
 import ClientError from '../../lib/utils/exceptions';
 import {setToken} from '../../lib/utils/auth';
+import * as alertActions from './alert';
 
 const setLoadingAction = () => ({
   type: types.LOGIN_SET_LOADING,
@@ -10,6 +11,11 @@ const setLoadingAction = () => ({
 const login = user => ({
   type: types.LOGIN,
   user,
+});
+
+const loginFail = error => ({
+  type: types.LOGIN_FAILED,
+  error,
 });
 
 export const doLogin = (email, password) => dispatch => {
@@ -24,6 +30,7 @@ export const doLogin = (email, password) => dispatch => {
       const _message = 'The user or password was incorrect!, please try again.';
       const message =
         error instanceof ClientError ? _message : 'Internal Error';
+      dispatch(loginFail(error));
       dispatch(alertActions.error(message));
     },
   );

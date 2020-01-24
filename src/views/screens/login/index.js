@@ -6,15 +6,26 @@ import LoginForm from '../../../lib/components/loginForm';
 
 import {connect} from 'react-redux';
 import * as loginActions from '../../../redux/actions/login';
+import * as alertActions from '../../../redux/actions/alert';
+
+import validate from 'utils/validate';
 
 const Login = props => {
-  const {navigation, do_login, login} = props;
+  const {navigation, do_alert, do_login, login} = props;
   // Mount
   useEffect(() => {}, []);
 
   // Methods
-  const doLogin = (user, password) => {
-    do_login(user, password);
+  const doLogin = (email, password) => {
+    // Validate email and password
+    const valid = validate({email, password});
+
+    if (valid === null) {
+      do_login(email, password);
+    } else {
+      const messages = `${Object.keys(valid).map( e => valid[e] ).flat().join(".\n")}.\n`
+      do_alert(messages);
+    }
   };
 
   // Render
@@ -79,8 +90,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    do_login: (user, password) => {
-      dispatch(loginActions.do_login(user, password));
+    do_login: (email, password) => {
+      dispatch(loginActions.doLogin(email, password));
+    },
+    do_alert: message => {
+      dispatch(alertActions.error(message));
     },
   };
 };

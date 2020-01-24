@@ -23,7 +23,7 @@ const login = (state = defaultState, action) => {
     case types.LOGIN_FAILED:
       return {
         ...state,
-        error: action.payload,
+        error: action.error,
         loading: false,
       };
     case types.LOGOUT:
