@@ -6,12 +6,16 @@ const commonPlugins = [
       alias: {
         utils: './src/lib/utils',
         configs: './src/lib/configs',
+        components: './src/lib/components',
       },
     },
   ],
 ];
 
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: [
+    'module:metro-react-native-babel-preset',
+    'module:react-native-dotenv',
+  ],
   plugins: [...commonPlugins],
 };

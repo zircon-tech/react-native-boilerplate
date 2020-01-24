@@ -1,27 +1,32 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import NavigationService from '../../navigation/NavigationServices';
 
-export const getAuth = async () => {
-  try {
-    const auth = await AsyncStorage.getItem('auth');
-    return auth ? JSON.parse(auth) : null;
-  } catch (error) {
-    return null;
-  }
+const storage = AsyncStorage;
+const tokenKey = 'jwtToken';
+
+export const setToken = token => {
+  storage.setItem(
+    tokenKey,
+    JSON.stringify({
+      value: token,
+    }),
+  );
 };
 
-export const setAuth = async auth => {
-  const authObject = JSON.stringify(auth);
-  const authVal = await AsyncStorage.setItem('auth', authObject);
-  return authVal;
+export const getToken = () => {
+  const encodedStoredToken = storage.getItem(tokenKey);
+  if (encodedStoredToken) {
+    try {
+      const storedToken = JSON.parse(encodedStoredToken);
+      return storedToken.value;
+    } catch (e) {
+      return null;
+    }
+  }
+  return null;
 };
 
-export const logOut = async () => {
-  try {
-    await AsyncStorage.removeItem('auth');
-    NavigationService.navigate('Login');
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
+export function deleteToken() {
+  storage.removeItem(tokenKey);
+  NavigationService.navigate('Login');
+}

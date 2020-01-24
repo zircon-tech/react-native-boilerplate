@@ -1,4 +1,4 @@
-import * as types from '../types';
+import types from '../types';
 
 const defaultState = {
   user: null,
@@ -8,24 +8,22 @@ const defaultState = {
 
 const login = (state = defaultState, action) => {
   switch (action.type) {
+    case types.LOGIN_SET_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     case types.LOGIN:
       return {
         ...state,
-        user: null,
+        user: action.user,
         error: null,
-        loading: true,
-      };
-    case types.LOGIN_SUCCEEDED:
-      return {
-        ...state,
-        user: action.payload,
         loading: false,
       };
-
     case types.LOGIN_FAILED:
       return {
         ...state,
-        error: action.payload,
+        error: action.error,
         loading: false,
       };
     case types.LOGOUT:
