@@ -72,7 +72,7 @@ API_KEY= SERVER KEY FOR HEADER SECURITY
 5. Add modal component with props on return.
 6. Dispatch `success` or `error` actions with message and title params.
 
-### Example: 
+Example: 
 
 ```javascript
 import React from 'react';
@@ -147,57 +147,57 @@ export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
 
 1. Create validations file following [VALIDATE.JS](https://validatejs.org/) guide.
 Example:
-  ```javascript
-  const validations = {
+```javascript
+const validations = {
+  email: {
+    presence: {
+      message: '^Please enter an email address',
+    },
     email: {
-      presence: {
-        message: '^Please enter an email address',
-      },
-      email: {
-        message: '^Please enter a valid email address',
-      },
+      message: '^Please enter a valid email address',
     },
+  },
 
-    password: {
-      presence: {
-        message: '^Please enter a password',
-      },
-      length: {
-        minimum: 5,
-        message: '^Your password must be at least 5 characters',
-      },
+  password: {
+    presence: {
+      message: '^Please enter a password',
     },
-  };
+    length: {
+      minimum: 5,
+      message: '^Your password must be at least 5 characters',
+    },
+  },
+};
 
-  export default validations;
-  ```
+export default validations;
+```
 
 2. Import function:
-  ```javascript
-  import validate from 'utils/validate';
-  ```
+```javascript
+import validate from 'utils/validate';
+```
 3. Capture inputs in variables, for example: 
-  ```javascript
-  const email = 'joaquinb@zircon.tech';
-  const password 'super_secret_password';
-  ```
+```javascript
+const email = 'joaquinb@zircon.tech';
+const password 'super_secret_password';
+```
 4. Use validate function with variables as key-value array
-  ```javascript
-  const valid = validate({email, password});
-  ```
+```javascript
+const valid = validate({email, password});
+```
 5. Outputs:
   - Everithing is OK: 
-    ```javascript
-    null
-    ```
+  ```javascript
+  null
+  ```
   - Something wrong: 
-    ```javascript
-    {
-      email: [
-        "Please enter a valid email address",
-      ],
-      password: [
-        "Your password must be at least 5 characters",
-      ]
-    }
-    ```
+  ```javascript
+  {
+    email: [
+      "Please enter a valid email address",
+    ],
+    password: [
+      "Your password must be at least 5 characters",
+    ]
+  }
+  ```
