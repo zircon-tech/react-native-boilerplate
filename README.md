@@ -20,7 +20,7 @@ This is a React Native Boillerplate with custom components and login function wi
 
 # Structure
 
-![Structure](/structure.jpg)
+![Structure](/images/structure.jpg)
 
 ## Views
 Redux connected. Group of components that make up a screen.
@@ -62,6 +62,9 @@ API_KEY= SERVER KEY FOR HEADER SECURITY
 ```
 
 ## Error/Success modal
+
+![Structure](/images/modal.png)
+
 1. Connect App component to redux
 2. Import alertActions and Modal. 
 3. Add `alertObject` redux state and `clear` action.
