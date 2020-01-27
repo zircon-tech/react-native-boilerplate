@@ -10,7 +10,12 @@ const setLoadingAction = () => ({
 
 const register = user => ({
   type: types.REGISTER,
-  user,
+  ...user,
+});
+
+const registerFail = error => ({
+  type: types.REGISTER_FAILED,
+  error,
 });
 
 export const doRegister = (
@@ -21,16 +26,12 @@ export const doRegister = (
   phone,
   password,
 ) => dispatch => {
-  console.log('=====================')
-  console.log( 'username', username )
-  console.log('=====================')
   dispatch(setLoadingAction());
   return userService
-    .login(username, firstname, lastname, email, phone, password)
+    .register(username, firstname, lastname, email, phone, password)
     .then(
       response => {
-        dispatch(login(response.data.user));
-        setToken(response.data.jwtToken);
+        dispatch(register(response.data.user));
         return true;
       },
       error => {
@@ -38,7 +39,7 @@ export const doRegister = (
           'The user or password was incorrect!, please try again.';
         const message =
           error instanceof ClientError ? _message : 'Internal Error';
-        dispatch(loginFail(error));
+        dispatch(registerFail(error));
         dispatch(alertActions.error(message));
       },
     );
