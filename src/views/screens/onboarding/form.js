@@ -6,10 +6,10 @@ import Button from 'components/components/button';
 
 const RegisterForm = props => {
   // Props
-  const {doRegister} = props;
+  const {doRegister, register} = props;
 
   // Hooks
-  const [user, setUser] = useState('');
+  const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -23,7 +23,7 @@ const RegisterForm = props => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Input placeholder="User" value={user} onChangeText={setUser} />
+        <Input placeholder="User" value={username} onChangeText={setUsername} />
       </View>
 
       <View style={styles.inputContainer}>
@@ -43,7 +43,7 @@ const RegisterForm = props => {
       </View>
 
       <View style={styles.inputContainer}>
-        <Input placeholder="LastName" value={phone} onChangeText={setPhone} />
+        <Input placeholder="Phone" value={phone} onChangeText={setPhone} />
       </View>
 
       <View style={styles.inputContainer}>
@@ -58,9 +58,9 @@ const RegisterForm = props => {
       <View style={[styles.inputContainer, styles.registerButton]}>
         <Button
           title={'Register'}
-          loading={false}
+          loading={register.loading}
           action={() =>
-            doRegister(user, name, lastName, email, phone, password)
+            doRegister(username, name, lastName, email, phone, password)
           }
         />
       </View>
