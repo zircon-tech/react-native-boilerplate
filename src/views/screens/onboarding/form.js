@@ -39,11 +39,11 @@ const RegisterForm = props => {
       </View>
 
       <View style={styles.inputContainer}>
-        <Input placeholder="Email" value={email} onChangeText={setEmail} />
+        <Input placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
       </View>
 
       <View style={styles.inputContainer}>
-        <Input placeholder="Phone" value={phone} onChangeText={setPhone} />
+        <Input placeholder="Phone" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
       </View>
 
       <View style={styles.inputContainer}>
