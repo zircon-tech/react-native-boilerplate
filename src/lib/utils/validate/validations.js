@@ -21,23 +21,47 @@ const validations = {
     presence: true,
     length: {
       minimum: 3,
-      maximum: 20
+      maximum: 20,
     },
     format: {
-      pattern: "[a-z0-9]+",
-      flags: "i",
-      message: "can only contain a-z and 0-9"
-    }
+      pattern: '[a-z0-9]+',
+      flags: 'i',
+      message: 'can only contain a-z and 0-9',
+    },
   },
   phone: {
     presence: {
       message: '^Please enter a valid phone number',
     },
     format: {
-      pattern: "(\\+5989|09)([0-9]{7})",
+      pattern: '(\\+5989|09)([0-9]{7})',
       message: '^Invalid phone format. 09xxxxxxx / +5989xxxxxxx',
-    }
-  }
+    },
+  },
+  name: {
+    presence: true,
+    length: {
+      minimum: 2,
+      maximum: 20,
+    },
+    format: {
+      pattern: '[a-z]+',
+      flags: 'i',
+      message: 'can only contain a-z',
+    },
+  },
+  lastName: {
+    presence: true,
+    length: {
+      minimum: 2,
+      maximum: 20,
+    },
+    format: {
+      pattern: '[a-z]+',
+      flags: 'i',
+      message: 'can only contain a-z',
+    },
+  },
 };
 
 export default validations;
