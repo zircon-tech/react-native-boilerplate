@@ -24,7 +24,7 @@ const validations = {
       maximum: 20,
     },
     format: {
-      pattern: '[a-z0-9]+',
+      pattern: '[a-zA-Z0-9]+',
       flags: 'i',
       message: 'can only contain a-z and 0-9',
     },
@@ -45,7 +45,7 @@ const validations = {
       maximum: 20,
     },
     format: {
-      pattern: '[a-z]+',
+      pattern: '[a-zA-Z ]+',
       flags: 'i',
       message: 'can only contain a-z',
     },
@@ -57,7 +57,7 @@ const validations = {
       maximum: 20,
     },
     format: {
-      pattern: '[a-z]+',
+      pattern: '[a-zA-Z ]+',
       flags: 'i',
       message: 'can only contain a-z',
     },
