@@ -17,6 +17,27 @@ const validations = {
       message: '^Your password must be at least 5 characters',
     },
   },
+  username: {
+    presence: true,
+    length: {
+      minimum: 3,
+      maximum: 20
+    },
+    format: {
+      pattern: "[a-z0-9]+",
+      flags: "i",
+      message: "can only contain a-z and 0-9"
+    }
+  },
+  phone: {
+    presence: {
+      message: '^Please enter a valid phone number',
+    },
+    format: {
+      pattern: "(\\+5989|09)([0-9]{7})",
+      message: '^Invalid phone format. 09xxxxxxx / +5989xxxxxxx',
+    }
+  }
 };
 
 export default validations;
