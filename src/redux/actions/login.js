@@ -4,7 +4,7 @@ import ClientError from '../../lib/utils/exceptions';
 import {setToken} from '../../lib/utils/auth';
 import * as alertActions from './alert';
 
-const setLoadingAction = () => ({
+const loginSetLoading = () => ({
   type: types.LOGIN_SET_LOADING,
 });
 
@@ -18,8 +18,22 @@ const loginFail = error => ({
   error,
 });
 
+const forgot = email => ({
+  type: types.FORGOT,
+  email,
+});
+
+const forgotSetLoading = email => ({
+  type: types.FORGOT_SET_LOADING,
+});
+
+const forgotFail = error => ({
+  type: types.FORGOT_FAILED,
+  error,
+});
+
 export const doLogin = (email, password) => dispatch => {
-  dispatch(setLoadingAction());
+  dispatch(loginSetLoading());
   return userService.login(email, password).then(
     response => {
       dispatch(login(response.data.user));
@@ -37,7 +51,7 @@ export const doLogin = (email, password) => dispatch => {
 };
 
 export const doRegister = user => dispatch => {
-  dispatch(setLoadingAction());
+  dispatch(loginSetLoading());
   return userService.register(user).then(
     () => {
       dispatch(alertActions.success('The user was reigister successfully'));
@@ -52,23 +66,25 @@ export const doRegister = user => dispatch => {
 };
 
 export const doForgotPassword = email => dispatch => {
-  dispatch(setLoadingAction());
+  dispatch(forgotSetLoading());
   return userService.forgotPassword(email).then(
     () => {
       dispatch(
         alertActions.success('The email was sent, please check your mailbox.'),
       );
+      dispatch(forgot(email));
     },
     error => {
       const message =
         error instanceof ClientError ? error.message : 'Internal Error';
       dispatch(alertActions.error(message));
+      dispatch(forgotFail(error));
     },
   );
 };
 
 export const doResetPassword = (user, token) => dispatch => {
-  dispatch(setLoadingAction());
+  dispatch(loginSetLoading());
   return userService.forgotPasswordConfirm(user, token).then(
     response => {
       dispatch(alertActions.success('The password was changed successfully!'));
@@ -83,7 +99,7 @@ export const doResetPassword = (user, token) => dispatch => {
 };
 
 export const doCheckValidationToken = token => dispatch => {
-  dispatch(setLoadingAction());
+  dispatch(loginSetLoading());
   return userService.checkValidationToken(token).then(
     () => {},
     error => {
