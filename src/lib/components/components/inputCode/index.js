@@ -4,17 +4,15 @@ import InputChar from 'components/components/inputChar';
 
 const InputCode = props => {
   // Props
-  const {codeLength} = props;
+  const {codeLength, onChangeText} = props;
 
   // Hooks
   const [code, setCode] = useState(new Array(codeLength).fill(null));
   const [inputs, setInputs] = useState(new Array(codeLength).fill(null));
 
-  // const onChangeText = (idx, value) => {
-  //   setCode(Object.values({...code, [idx]: value}));
-  // };
-
-  useEffect(() => {}, []);
+  useEffect(() => {
+    onChangeText(code.join(''));
+  }, [code]);
 
   // Render
   return (
@@ -43,6 +41,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 

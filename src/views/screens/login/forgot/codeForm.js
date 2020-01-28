@@ -7,27 +7,26 @@ import Button from 'components/components/button';
 import {forgotCode} from 'configs';
 
 const EmailForm = props => {
-
   const {codeLength} = forgotCode;
 
   // Props
   const {doFrogot, forgot} = props;
 
+  // Hooks
+  const [code, setCode] = useState('');
 
-  // Mount
-  useEffect(() => {}, []);
 
   // Render
   return (
     <>
       <View style={styles.inputContainer}>
-        <InputCode codeLength={4} />
+        <InputCode codeLength={codeLength} onChangeText={setCode} />
       </View>
       <View style={[styles.inputContainer, styles.forgotButton]}>
         <Button
-          title={'Get code'}
+          title={'Change password'}
           loading={forgot.loading}
-          action={() => doFrogot(email)}
+          action={() => console.log('CODE')}
         />
       </View>
     </>
@@ -40,9 +39,10 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
+    marginVertical: 15,
   },
   forgotButton: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
 });
 
