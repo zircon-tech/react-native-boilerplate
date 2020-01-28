@@ -1,57 +1,52 @@
-import { unAuthAxiosCall, authAxiosCall } from './axios';
-import { deleteToken } from '../../lib/utils/auth';
+import {unAuthAxiosCall, authAxiosCall} from './axios';
+import {deleteToken} from '../../lib/utils/auth';
 
-export const login = async (email, password) => unAuthAxiosCall(
-  '/login',
-  {
+export const login = async (email, password) =>
+  unAuthAxiosCall('/login', {
     method: 'POST',
-    body: JSON.stringify(
-      {
-        email,
-        password,
-      }
-    )
-  }
-);
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
 
-export const register = async (user) => unAuthAxiosCall(
-  '/user',
-  {
+export const register = async (
+  username,
+  firstname,
+  lastname,
+  phone,
+  email,
+  password,
+) =>
+  unAuthAxiosCall('/user', {
     method: 'POST',
-    body: JSON.stringify(
-      {
-        first_name: user.first_name,
-        last_name: user.last_name,
-        cellphone: user.phone_number,
-        email: user.email,
-        password: user.password,
-      }
-    ),
-  }
-);
+    body: JSON.stringify({
+      username: username,
+      first_name: firstname,
+      last_name: lastname,
+      cellphone: phone,
+      email: email,
+      password: password,
+    }),
+  });
 
-export const forgotPassword = (email) => unAuthAxiosCall(
-  '/user/forgot_password',
-  {
+export const forgotPassword = email =>
+  unAuthAxiosCall('/user/forgot_password', {
     method: 'POST',
-    body: JSON.stringify(
-      {
-        email,
-        url: 'reset_password?token='
-      }
-    )
-  }
-);
+    body: JSON.stringify({
+      email,
+      url: 'reset_password?token=',
+    }),
+  });
 
-export const forgotPasswordConfirm = async (user, token) => (
+export const forgotPasswordConfirm = async (user, token) =>
   unAuthAxiosCall('/user/forgot_password_confirm', {
     method: 'POST',
     body: JSON.stringify({
       password: user.newPassword,
-      token
-    })
-  })
-);
+      token,
+    }),
+  });
 
 export function logout() {
   deleteToken();
@@ -67,24 +62,19 @@ export function logout() {
 }
 
 export function loginWGoogle(accessToken, user) {
-  return unAuthAxiosCall(
-    '/user/google_account',
-    {
-      method: "POST",
-      body: JSON.stringify({
-        token: accessToken,
-        user: user || {}
-      })
-    }
-  );
-}
-
-export const checkValidationToken = async (token) => authAxiosCall(
-  '/user/forgot_password_checktoken',
-  {
+  return unAuthAxiosCall('/user/google_account', {
     method: 'POST',
     body: JSON.stringify({
-      token
-    })
-  }
-);
+      token: accessToken,
+      user: user || {},
+    }),
+  });
+}
+
+export const checkValidationToken = async token =>
+  authAxiosCall('/user/forgot_password_checktoken', {
+    method: 'POST',
+    body: JSON.stringify({
+      token,
+    }),
+  });

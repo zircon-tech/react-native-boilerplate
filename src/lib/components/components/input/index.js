@@ -20,6 +20,7 @@ const Input = props => {
       style={styles.inputStyle}
       onChangeText={text => onChangeText(text)}
       value={value}
+      {...props}
     />
   );
 };
