@@ -28,6 +28,12 @@ const forgot = (state = defaultState, action) => {
         error: null,
         loading: false,
       };
+    case types.FORGOT_CODE_PASSWORD:
+      return {
+        ...state,
+        error: null,
+        loading: false,
+      };
     case types.FORGOT_FAILED:
       return {
         ...state,

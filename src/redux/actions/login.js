@@ -32,6 +32,15 @@ const forgotFail = error => ({
   error,
 });
 
+const forgot_code = code => ({
+  type: types.FORGOT_CODE,
+  code,
+});
+
+const forgot_code_password = () => ({
+  type: types.FORGOT_CODE_PASSWORD,
+});
+
 export const doLogin = (email, password) => dispatch => {
   dispatch(loginSetLoading());
   return userService.login(email, password).then(
@@ -83,12 +92,27 @@ export const doForgotPassword = email => dispatch => {
   );
 };
 
-export const doResetPassword = (user, token) => dispatch => {
-  dispatch(loginSetLoading());
-  return userService.forgotPasswordConfirm(user, token).then(
+export const doCheckCode = (email, code) => dispatch => {
+  dispatch(forgotSetLoading());
+  return userService.forgotPasswordCheck(email, code).then(
     response => {
-      dispatch(alertActions.success('The password was changed successfully!'));
-      setToken(response.data.jwtToken);
+      dispatch(alertActions.success('The code is correct!'));
+      dispatch(forgot_code(code));
+    },
+    error => {
+      const message =
+        error instanceof ClientError ? error.message : 'Internal Error';
+      dispatch(alertActions.error(message));
+    },
+  );
+};
+
+export const doCodeChangePassword = (email, code, password) => dispatch => {
+  dispatch(forgotSetLoading());
+  return userService.forgotPasswordConfirm(email, code, password).then(
+    response => {
+      dispatch(alertActions.success('Password changed!'));
+      dispatch(forgot_code_password());
     },
     error => {
       const message =

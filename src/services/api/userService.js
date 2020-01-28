@@ -39,12 +39,22 @@ export const forgotPassword = email =>
     }),
   });
 
-export const forgotPasswordConfirm = async (user, token) =>
+export const forgotPasswordCheck = async (email, code) =>
+  unAuthAxiosCall('/user/forgot_password_check', {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      code,
+    }),
+  });
+
+export const forgotPasswordConfirm = async (email, code, password) =>
   unAuthAxiosCall('/user/forgot_password_confirm', {
     method: 'POST',
     body: JSON.stringify({
-      password: user.newPassword,
-      token,
+      email,
+      password,
+      code,
     }),
   });
 
