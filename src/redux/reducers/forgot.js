@@ -2,6 +2,7 @@ import types from '../types';
 
 const defaultState = {
   email: null,
+  code: null,
   loading: false,
   error: null,
 };
@@ -17,6 +18,13 @@ const forgot = (state = defaultState, action) => {
       return {
         ...state,
         email: action.email,
+        error: null,
+        loading: false,
+      };
+    case types.FORGOT_CODE:
+      return {
+        ...state,
+        code: action.code,
         error: null,
         loading: false,
       };
