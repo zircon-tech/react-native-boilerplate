@@ -83,6 +83,12 @@ const mapDispatchToProps = dispatch => {
     do_forgot: email => {
       dispatch(loginActions.doForgotPassword(email));
     },
+    do_check_code: (email, code) => {
+      dispatch(loginActions.doCheckCode(email, code));
+    },
+    do_change_password: (email, code, password) => {
+      dispatch(loginActions.doCodeChangePassword(email, code, password));
+    },
     do_alert: message => {
       dispatch(alertActions.error(message));
     },
