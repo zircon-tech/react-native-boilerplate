@@ -10,9 +10,9 @@ const InputCode = props => {
   const [code, setCode] = useState(new Array(codeLength).fill(null));
   const [inputs, setInputs] = useState(new Array(codeLength).fill(null));
 
-  const onChangeText = (idx, value) => {
-    setCode(Object.values({...code, [idx]: value}));
-  };
+  // const onChangeText = (idx, value) => {
+  //   setCode(Object.values({...code, [idx]: value}));
+  // };
 
   useEffect(() => {}, []);
 
@@ -28,8 +28,10 @@ const InputCode = props => {
             if (inputs[index] === null)
               await setInputs(Object.values({...inputs, [index]: r}));
           }}
-          onChangeText={event => {
-            event && inputs[index + 1] && inputs[index + 1].focus();
+          onFocus={() => setCode(Object.values({...code, [index]: null}))}
+          onChangeText={value => {
+            setCode(Object.values({...code, [index]: value}));
+            value && inputs[index + 1] && inputs[index + 1].focus();
           }}
         />
       ))}
