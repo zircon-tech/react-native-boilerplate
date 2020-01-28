@@ -1,3 +1,5 @@
+import {forgotCode} from 'configs';
+
 const validations = {
   email: {
     presence: {
@@ -7,7 +9,6 @@ const validations = {
       message: '^Please enter a valid email address',
     },
   },
-
   password: {
     presence: {
       message: '^Please enter a password',
@@ -60,6 +61,14 @@ const validations = {
       pattern: '[a-zA-Z ]+',
       flags: 'i',
       message: 'can only contain a-z',
+    },
+  },
+  code: {
+    presence: {
+      message: '^Please enter a valid code',
+    },
+    length: {
+      is: forgotCode,
     },
   },
 };

@@ -10,7 +10,7 @@ const EmailForm = props => {
   const {codeLength} = forgotCode;
 
   // Props
-  const {doFrogot, forgot} = props;
+  const {doCheckCode} = props;
 
   // Hooks
   const [code, setCode] = useState('');
@@ -26,7 +26,7 @@ const EmailForm = props => {
         <Button
           title={'Change password'}
           loading={forgot.loading}
-          action={() => console.log('CODE')}
+          action={() => doCheckCode(forgot.email, code) }
         />
       </View>
     </>

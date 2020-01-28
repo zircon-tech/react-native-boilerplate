@@ -33,6 +33,21 @@ const Login = props => {
     }
   };
 
+  const doCheckCode = (email, code) => {
+    // Validate email and password
+    const valid = validate({email, code});
+
+    if (valid === null) {
+      do_check_code(email, code);
+    } else {
+      const messages = `${Object.keys(valid)
+        .map(e => valid[e])
+        .flat()
+        .join('.\n')}.\n`;
+      do_alert(messages);
+    }
+  };
+
   // Render
   return (
     <View style={styles.container}>
@@ -41,7 +56,7 @@ const Login = props => {
       </View>
       <View style={styles.formContainer}>
         {forgot.email ? (
-          <CodeForm forgot={forgot} doFrogot={doFrogot} />
+          <CodeForm forgot={forgot} doCheckCode={doCheckCode} />
         ) : (
           <EmailForm forgot={forgot} doFrogot={doFrogot} />
         )}
