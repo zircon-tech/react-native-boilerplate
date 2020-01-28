@@ -12,10 +12,6 @@ const Onboarding = props => {
   // Props
   const {navigation, do_alert, do_register, register} = props;
 
-  console.log('=====================')
-  console.log( 'register', register )
-  console.log('=====================')
-
   // Mount
   useEffect(() => {}, []);
 
