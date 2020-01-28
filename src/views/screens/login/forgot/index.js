@@ -40,7 +40,7 @@ const Login = props => {
         <Text style={styles.title}>Forgot</Text>
       </View>
       <View style={styles.formContainer}>
-        {!forgot.email ? (
+        {forgot.email ? (
           <CodeForm forgot={forgot} doFrogot={doFrogot} />
         ) : (
           <EmailForm forgot={forgot} doFrogot={doFrogot} />
