@@ -15,7 +15,7 @@ const Login = props => {
   const {navigation, do_alert, do_forgot, forgot} = props;
 
   // Mount
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
   // Methods
   const doFrogot = email => {
@@ -48,6 +48,10 @@ const Login = props => {
     }
   };
 
+  console.log('=====================')
+  console.log( 'forgot', forgot )
+  console.log('=====================')
+
   // Render
   return (
     <View style={styles.container}>
@@ -55,7 +59,7 @@ const Login = props => {
         <Text style={styles.title}>Forgot</Text>
       </View>
       <View style={styles.formContainer}>
-        {forgot.email ? (
+        {!forgot.email ? (
           <CodeForm forgot={forgot} doCheckCode={doCheckCode} />
         ) : (
           <EmailForm forgot={forgot} doFrogot={doFrogot} />

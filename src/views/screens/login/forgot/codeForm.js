@@ -10,7 +10,7 @@ const EmailForm = props => {
   const {codeLength} = forgotCode;
 
   // Props
-  const {doCheckCode} = props;
+  const {doCheckCode, forgot} = props;
 
   // Hooks
   const [code, setCode] = useState('');
@@ -20,7 +20,7 @@ const EmailForm = props => {
   return (
     <>
       <View style={styles.inputContainer}>
-        <InputCode codeLength={codeLength} onChangeText={setCode} />
+        <InputCode codeLength={codeLength} onChangeText={ text => {text && setCode} } />
       </View>
       <View style={[styles.inputContainer, styles.forgotButton]}>
         <Button

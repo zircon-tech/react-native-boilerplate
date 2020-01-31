@@ -12,7 +12,7 @@ const InputChar = props => {
       placeholderTextColor="#212121"
       style={styles.inputStyle}
       maxLength={1}
-      ref={r => inputRef && inputRef(r)}
+      ref={r => r && inputRef && inputRef(r)}
       {...props}
     />
   );

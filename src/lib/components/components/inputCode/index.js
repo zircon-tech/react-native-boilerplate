@@ -11,7 +11,7 @@ const InputCode = props => {
   const [inputs, setInputs] = useState(new Array(codeLength).fill(null));
 
   useEffect(() => {
-    onChangeText(code.join(''));
+    code && onChangeText(code.join(''));
   }, [code]);
 
   // Render
