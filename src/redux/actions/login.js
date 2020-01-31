@@ -74,6 +74,10 @@ export const doRegister = user => dispatch => {
   );
 };
 
+export const doForgotClean = () => dispatch => {
+  dispatch({type: types.FORGOT_CLEAN});
+};
+
 export const doForgotPassword = email => dispatch => {
   dispatch(forgotSetLoading());
   return userService.forgotPassword(email).then(

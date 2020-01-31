@@ -12,7 +12,7 @@ import validate from 'utils/validate';
 
 const Login = props => {
   // Props
-  const {navigation, do_alert, do_forgot, forgot} = props;
+  const {navigation, do_alert, do_forgot, forgot, do_forgot_clean} = props;
 
   // Mount
   // useEffect(() => {}, []);
@@ -41,6 +41,7 @@ const Login = props => {
 
       if (valid === null) {
         do_check_code(email, code);
+        return true;
       } else {
         const messages = `${Object.keys(valid)
           .map(e => valid[e])
@@ -48,7 +49,11 @@ const Login = props => {
           .join('.\n')}.\n`;
         do_alert(messages);
       }
+    } else {
+      do_alert('Code or Email are invalid!');
+      do_forgot_clean();
     }
+    return false;
   };
 
   // Render
@@ -58,7 +63,7 @@ const Login = props => {
         <Text style={styles.title}>Forgot</Text>
       </View>
       <View style={styles.formContainer}>
-        {!forgot.email ? (
+        {forgot.email ? (
           <CodeForm forgot={forgot} doCheckCode={doCheckCode} />
         ) : (
           <EmailForm forgot={forgot} doFrogot={doFrogot} />
@@ -100,6 +105,9 @@ const mapDispatchToProps = dispatch => {
   return {
     do_forgot: email => {
       dispatch(loginActions.doForgotPassword(email));
+    },
+    do_forgot_clean: () => {
+      dispatch(loginActions.doForgotClean());
     },
     do_check_code: (email, code) => {
       dispatch(loginActions.doCheckCode(email, code));

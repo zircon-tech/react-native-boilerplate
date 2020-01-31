@@ -16,19 +16,23 @@ const EmailForm = props => {
   const [code, setCode] = useState('');
 
   // Method
-  useEffect( () => {
-    if( code.length === codeLength){
-      doCheckCode(forgot.email, code);
+  useEffect(() => {
+    if (code.length === codeLength) {
+      const valid = doCheckCode(forgot.email, code);
+      if (!valid) setCode('');
     }
-  }, [code])
-
-
+  }, [code]);
 
   // Render
   return (
     <>
       <View style={styles.inputContainer}>
-        <InputCode codeLength={codeLength} onChangeCode={ text => {text && setCode(text)} } />
+        <InputCode
+          codeLength={codeLength}
+          onChangeCode={text => {
+            text && setCode(text);
+          }}
+        />
       </View>
       <View style={[styles.inputContainer, styles.forgotButton]}>
         {/* <Button

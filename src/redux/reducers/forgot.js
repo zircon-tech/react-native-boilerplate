@@ -21,6 +21,10 @@ const forgot = (state = defaultState, action) => {
         error: null,
         loading: false,
       };
+    case types.FORGOT_CLEAN:
+      return {
+        ...defaultState,
+      };
     case types.FORGOT_CODE:
       return {
         ...state,
