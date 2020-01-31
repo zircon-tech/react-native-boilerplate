@@ -35,17 +35,21 @@ const Login = props => {
 
   const doCheckCode = (email, code) => {
     // Validate email and password
-    const valid = validate({email, code});
+    console.log('=====================')
+    console.log( 'email', email )
+    console.log( 'code', code )
+    console.log('=====================')
+    // const valid = validate({email, code});
 
-    if (valid === null) {
-      do_check_code(email, code);
-    } else {
-      const messages = `${Object.keys(valid)
-        .map(e => valid[e])
-        .flat()
-        .join('.\n')}.\n`;
-      do_alert(messages);
-    }
+    // if (valid === null) {
+    //   do_check_code(email, code);
+    // } else {
+    //   const messages = `${Object.keys(valid)
+    //     .map(e => valid[e])
+    //     .flat()
+    //     .join('.\n')}.\n`;
+    //   do_alert(messages);
+    // }
   };
 
   // Render

@@ -4,14 +4,14 @@ import InputChar from 'components/components/inputChar';
 
 const InputCode = props => {
   // Props
-  const {codeLength, onChangeText} = props;
+  const {codeLength, onChangeCode} = props;
 
   // Hooks
   const [code, setCode] = useState(new Array(codeLength).fill(null));
   const [inputs, setInputs] = useState(new Array(codeLength).fill(null));
 
   useEffect(() => {
-    code && onChangeText(code.join(''));
+    code && onChangeCode(code.join(''));
   }, [code]);
 
   // Render
