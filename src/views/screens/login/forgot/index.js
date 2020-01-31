@@ -48,10 +48,6 @@ const Login = props => {
     }
   };
 
-  console.log('=====================')
-  console.log( 'forgot', forgot )
-  console.log('=====================')
-
   // Render
   return (
     <View style={styles.container}>
