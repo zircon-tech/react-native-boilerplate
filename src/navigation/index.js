@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {connect} from 'react-redux';
@@ -12,6 +12,8 @@ import OnboardingNavigator from './OnboardingNavigator';
 import Modal from 'components/components/modal';
 
 import * as alertActions from '../redux/actions/alert';
+
+import NavigationService from './NavigationServices';
 
 const MainNavigation = createSwitchNavigator(
   {
@@ -29,7 +31,7 @@ const MainNavigation = createSwitchNavigator(
 
 const AppNavigator = createAppContainer(MainNavigation);
 
-const AppContainer = props => {
+const AppContainer = React.forwardRef((props, ref) => {
   const {alertObject, alert_clear} = props;
 
   // Methods
@@ -44,10 +46,18 @@ const AppContainer = props => {
         visible={alertObject && alertObject.message ? true : false}
         modalClose={modalClose}
       />
-      <AppNavigator />
+      <AppNavigator ref={ref} />
     </>
   );
-};
+});
+
+const AppContainerNavigationService = props => (
+  <AppContainer
+    ref={navigatorRef => {
+      NavigationService.setTopLevelNavigator(navigatorRef);
+    }}
+  />
+);
 
 const mapStateToProps = state => {
   return {
@@ -63,4 +73,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AppContainerNavigationService);
