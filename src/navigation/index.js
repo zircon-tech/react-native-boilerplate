@@ -56,6 +56,7 @@ const AppContainerNavigationService = props => (
     ref={navigatorRef => {
       NavigationService.setTopLevelNavigator(navigatorRef);
     }}
+    {...props}
   />
 );
 
