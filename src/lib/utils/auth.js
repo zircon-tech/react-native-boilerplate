@@ -13,8 +13,8 @@ export const setToken = token => {
   );
 };
 
-export const getToken = () => {
-  const encodedStoredToken = storage.getItem(tokenKey);
+export const getToken = async () => {
+  const encodedStoredToken = await storage.getItem(tokenKey);
   if (encodedStoredToken) {
     try {
       const storedToken = JSON.parse(encodedStoredToken);
