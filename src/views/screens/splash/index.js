@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, StatusBar} from 'react-native';
-import {getToken} from '../../../lib/utils/auth';
+import {getToken} from 'utils/auth';
 import {minSplashTime} from 'configs/splash';
 
 const Splash = props => {
