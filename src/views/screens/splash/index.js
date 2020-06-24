@@ -1,34 +1,24 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, StatusBar} from 'react-native';
-import {getToken} from 'utils/auth';
 import {minSplashTime} from 'configs/splash';
 
-const Splash = props => {
+const Component = ({navigation, load_catalogs, jwtToken}) => {
   StatusBar.setHidden(true);
-
-  // Props
-  const {navigation} = props;
-  // Mount
+  const tm = useRef(null);
   useEffect(() => {
-    checkAuth();
-  }, []);
-
-  // Methods
-  const checkAuth = async () => {
     const minTime = new Promise(resolve => {
-      setTimeout(resolve, minSplashTime);
+      tm.current = setTimeout(resolve, minSplashTime);
     });
-    const auth = getToken();
-    const {0: authData} = await Promise.all([auth, minTime]);
+    Promise.all([minTime, load_catalogs()]).then(() => {
+      if (jwtToken) {
+        navigation.navigate('Main');
+      } else {
+        navigation.navigate('Login');
+      }
+    });
+    return () => clearTimeout(tm.current);
+  }, [jwtToken, navigation, load_catalogs]);
 
-    if (authData) {
-      // Navigate to main
-      navigation.navigate('Main');
-    } else {
-      // Navigate to login
-      navigation.navigate('Login');
-    }
-  };
 
   // Render
   return (
@@ -51,4 +41,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Splash;
+export default connect(
+  ({
+     session: {jwtToken, currentUser},
+   }) => ({
+    jwtToken,
+    currentUser,
+  }),
+  dispatch => ({
+    load_catalogs: () => dispatch(globalActions.loadCatalogs()),
+  }),
+)(Component);

@@ -1,5 +1,4 @@
 import {unAuthAxiosCall, authAxiosCall} from './axios';
-import {deleteToken} from '../../lib/utils/auth';
 
 export const login = async (email, password) =>
   unAuthAxiosCall('/login', {
@@ -47,29 +46,6 @@ export const forgotPasswordConfirm = async (user, token) =>
       token,
     }),
   });
-
-export function logout() {
-  deleteToken();
-  return Promise.resolve(true);
-  // return authAxiosCall(
-  //   '/logout',
-  //   {
-  //     method: 'POST',
-  //   }
-  // ).then(() => {
-  //   deleteToken();
-  // });
-}
-
-export function loginWGoogle(accessToken, user) {
-  return unAuthAxiosCall('/user/google_account', {
-    method: 'POST',
-    body: JSON.stringify({
-      token: accessToken,
-      user: user || {},
-    }),
-  });
-}
 
 export const checkValidationToken = async token =>
   authAxiosCall('/user/forgot_password_checktoken', {

@@ -1,80 +1,89 @@
-import React, {useEffect, useRef} from 'react';
-
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import 'react-native-gesture-handler';
+import React from 'react';
+import GText from 'components/components/gText';
+import GButton from 'components/components/gButton';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import {connect} from 'react-redux';
 
 import Splash from '../views/screens/splash';
 
-import MainNavigator from './MainNavigator';
-import LoginNavigator from './LoginNavigator';
-import OnboardingNavigator from './OnboardingNavigator';
-
 import Modal from 'components/components/modal';
+import Main from '../views/screens/main';
 
 import * as alertActions from '../redux/actions/alert';
+import Onboarding from '../views/screens/onboarding';
+import SignIn from '../views/screens/login';
+import ForgotPassword from '../views/screens/login/forgot';
+import ResetPassword from '../views/screens/login/reset';
 
-import NavigationService from './NavigationServices';
+const StackMain = createStackNavigator();
 
-const MainNavigation = createSwitchNavigator(
-  {
-    Splash: {
-      screen: Splash,
-    },
-    Main: MainNavigator,
-    Login: LoginNavigator,
-    Onboarding: OnboardingNavigator,
-  },
-  {
-    initialRouteName: 'Splash',
-  },
+const AppContainer = ({alertObject, alert_clear, session}) => (
+  <>
+    <Modal
+      {...alertObject}
+      visible={Boolean(alertObject && alertObject.message)}
+      modalClose={() => {
+        alert_clear();
+      }}
+    />
+    <NavigationContainer>
+      <StackMain.Navigator initialRouteName="Splash" headerMode="screen">
+        <StackMain.Screen name="Splash" component={Splash} />
+        {session.currentUser ? (
+          <StackMain.Navigator initialRouteName="Main" headerMode="screen">
+            <StackMain.Screen
+              name="Main"
+              component={Main}
+              options={({navigation, route}) => ({
+                headerTitle: () => <GText>Main</GText>,
+                headerRight: () => (
+                  <GButton onPress={() => navigation.goBack()}>Go Back</GButton>
+                ),
+              })}
+            />
+          </StackMain.Navigator>
+        ) : (
+          <StackMain.Navigator initialRouteName="SignIn" headerMode="screen">
+            <StackMain.Screen
+              name="SignIn"
+              options={{title: 'SignIn'}}
+              component={SignIn}
+            />
+            <StackMain.Screen
+              name="ForgotPassword"
+              options={{title: 'ForgotPassword'}}
+              component={ForgotPassword}
+            />
+            <StackMain.Screen
+              name="ResetPassword"
+              options={{title: 'ResetPassword'}}
+              component={ResetPassword}
+            />
+            <StackMain.Screen
+              name="Onboarding"
+              options={{title: 'Onboarding'}}
+              component={Onboarding}
+            />
+          </StackMain.Navigator>
+        )}
+      </StackMain.Navigator>
+    </NavigationContainer>
+    {/*<AppNavigator ref={navigatorRef => {*/}
+    {/*  NavigationService.setTopLevelNavigator(navigatorRef);*/}
+    {/*}} />*/}
+  </>
 );
 
-const AppNavigator = createAppContainer(MainNavigation);
-
-const AppContainer = React.forwardRef((props, ref) => {
-  const {alertObject, alert_clear} = props;
-
-  // Methods
-  const modalClose = () => {
-    alert_clear();
-  };
-
-  return (
-    <>
-      <Modal
-        {...alertObject}
-        visible={alertObject && alertObject.message ? true : false}
-        modalClose={modalClose}
-      />
-      <AppNavigator ref={ref} />
-    </>
-  );
-});
-
-const AppContainerNavigationService = props => (
-  <AppContainer
-    ref={navigatorRef => {
-      NavigationService.setTopLevelNavigator(navigatorRef);
-    }}
-    {...props}
-  />
-);
-
-const mapStateToProps = state => {
-  return {
+export default connect(
+  (state) => ({
     alertObject: state.alert,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
+    session: state.session,
+  }),
+  (dispatch) => ({
     alert_clear: () => {
       dispatch(alertActions.clear());
     },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AppContainerNavigationService);
+  }),
+)(AppContainer);
