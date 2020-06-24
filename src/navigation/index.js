@@ -16,6 +16,7 @@ import Onboarding from '../views/screens/onboarding';
 import SignIn from '../views/screens/login';
 import ForgotPassword from '../views/screens/login/forgot';
 import ResetPassword from '../views/screens/login/reset';
+import NavigationServices from './NavigationServices';
 
 const StackMain = createStackNavigator();
 
@@ -28,7 +29,10 @@ const AppContainer = ({alertObject, alert_clear, session}) => (
         alert_clear();
       }}
     />
-    <NavigationContainer>
+    <NavigationContainer
+      ref={(navigatorRef) => {
+        NavigationServices.setTopLevelNavigator(navigatorRef);
+      }}>
       <StackMain.Navigator initialRouteName="Splash" headerMode="screen">
         <StackMain.Screen name="Splash" component={Splash} />
         {session.currentUser ? (
