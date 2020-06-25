@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import {connect} from 'react-redux';
 import GText from 'components/components/gText';
 import GButton from 'components/components/gButton';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {connect} from 'react-redux';
 
 import Splash from '../views/screens/splash';
 
@@ -19,6 +19,8 @@ import ResetPassword from '../views/screens/login/reset';
 import NavigationServices from './NavigationServices';
 
 const StackMain = createStackNavigator();
+const StackAuth = createStackNavigator();
+const StackUnauth = createStackNavigator();
 
 const AppContainer = ({alertObject, alert_clear, session}) => (
   <>
@@ -35,43 +37,51 @@ const AppContainer = ({alertObject, alert_clear, session}) => (
       }}>
       <StackMain.Navigator initialRouteName="Splash" headerMode="screen">
         <StackMain.Screen name="Splash" component={Splash} />
-        {session.currentUser ? (
-          <StackMain.Navigator initialRouteName="Main" headerMode="screen">
-            <StackMain.Screen
-              name="Main"
-              component={Main}
-              options={({navigation, route}) => ({
-                headerTitle: () => <GText>Main</GText>,
-                headerRight: () => (
-                  <GButton onPress={() => navigation.goBack()}>Go Back</GButton>
-                ),
-              })}
-            />
-          </StackMain.Navigator>
-        ) : (
-          <StackMain.Navigator initialRouteName="SignIn" headerMode="screen">
-            <StackMain.Screen
-              name="SignIn"
-              options={{title: 'SignIn'}}
-              component={SignIn}
-            />
-            <StackMain.Screen
-              name="ForgotPassword"
-              options={{title: 'ForgotPassword'}}
-              component={ForgotPassword}
-            />
-            <StackMain.Screen
-              name="ResetPassword"
-              options={{title: 'ResetPassword'}}
-              component={ResetPassword}
-            />
-            <StackMain.Screen
-              name="Onboarding"
-              options={{title: 'Onboarding'}}
-              component={Onboarding}
-            />
-          </StackMain.Navigator>
-        )}
+        <StackMain.Screen name="Main">
+          {() =>
+            session.currentUser ? (
+              <StackAuth.Navigator initialRouteName="Main" headerMode="screen">
+                <StackAuth.Screen
+                  name="Main"
+                  component={Main}
+                  options={({navigation, route}) => ({
+                    headerTitle: () => <GText>Main</GText>,
+                    headerRight: () => (
+                      <GButton onPress={() => navigation.goBack()}>
+                        Go Back
+                      </GButton>
+                    ),
+                  })}
+                />
+              </StackAuth.Navigator>
+            ) : (
+              <StackUnauth.Navigator
+                initialRouteName="SignIn"
+                headerMode="screen">
+                <StackUnauth.Screen
+                  name="SignIn"
+                  options={{title: 'SignIn'}}
+                  component={SignIn}
+                />
+                <StackUnauth.Screen
+                  name="ForgotPassword"
+                  options={{title: 'ForgotPassword'}}
+                  component={ForgotPassword}
+                />
+                <StackUnauth.Screen
+                  name="ResetPassword"
+                  options={{title: 'ResetPassword'}}
+                  component={ResetPassword}
+                />
+                <StackUnauth.Screen
+                  name="Onboarding"
+                  options={{title: 'Onboarding'}}
+                  component={Onboarding}
+                />
+              </StackUnauth.Navigator>
+            )
+          }
+        </StackMain.Screen>
       </StackMain.Navigator>
     </NavigationContainer>
     {/*<AppNavigator ref={navigatorRef => {*/}

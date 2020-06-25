@@ -1,7 +1,6 @@
 import * as login from './login';
 import * as alert from './alert';
 import * as register from './register';
+import * as session from './session';
 
-const combined = {...login, ...alert, ...register};
-
-export default combined;
+export default {...login, ...alert, ...register, ...session};

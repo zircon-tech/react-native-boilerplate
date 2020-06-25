@@ -4,15 +4,10 @@ import store from './src/redux/stores';
 import MainNavigation from './src/navigation';
 import GText from 'components/components/gText';
 
-class App extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <GText>Hola</GText>
-        {/*<MainNavigation />*/}
-      </Provider>
-    );
-  }
-}
+const App = () => (
+  <Provider store={store}>
+    <MainNavigation />
+  </Provider>
+);
 
 export default App;

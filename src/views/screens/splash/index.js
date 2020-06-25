@@ -1,24 +1,24 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {View, Text, StyleSheet, StatusBar} from 'react-native';
+import {connect} from 'react-redux';
 import {minSplashTime} from 'configs/splash';
 
 const Component = ({navigation, load_catalogs, jwtToken}) => {
   StatusBar.setHidden(true);
   const tm = useRef(null);
   useEffect(() => {
-    const minTime = new Promise(resolve => {
+    const minTime = new Promise((resolve) => {
       tm.current = setTimeout(resolve, minSplashTime);
     });
     Promise.all([minTime, load_catalogs()]).then(() => {
       if (jwtToken) {
         navigation.navigate('Main');
       } else {
-        navigation.navigate('Login');
+        navigation.navigate('Main');
       }
     });
     return () => clearTimeout(tm.current);
   }, [jwtToken, navigation, load_catalogs]);
-
 
   // Render
   return (
@@ -42,13 +42,11 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  ({
-     session: {jwtToken, currentUser},
-   }) => ({
+  ({session: {jwtToken, currentUser}}) => ({
     jwtToken,
     currentUser,
   }),
-  dispatch => ({
-    load_catalogs: () => dispatch(globalActions.loadCatalogs()),
+  (dispatch) => ({
+    load_catalogs: () => dispatch(() => ({})),
   }),
 )(Component);
