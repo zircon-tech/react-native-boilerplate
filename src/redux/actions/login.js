@@ -40,7 +40,7 @@ export const doRegister = user => dispatch => {
   dispatch(setLoadingAction());
   return userService.register(user).then(
     () => {
-      dispatch(alertActions.success('The user was reigister successfully'));
+      dispatch(alertActions.success('The user was register successfully'));
       return true;
     },
     error => {

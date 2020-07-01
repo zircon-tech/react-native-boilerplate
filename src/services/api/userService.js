@@ -1,7 +1,7 @@
 import {unAuthAxiosCall, authAxiosCall} from './axios';
 
 export const login = async (email, password) =>
-  unAuthAxiosCall('/login', {
+  unAuthAxiosCall('/api/auth/login', {
     method: 'POST',
     body: JSON.stringify({
       email,
@@ -17,7 +17,7 @@ export const register = async (
   email,
   password,
 ) =>
-  unAuthAxiosCall('/user', {
+  unAuthAxiosCall('/user/auth', {
     method: 'POST',
     body: JSON.stringify({
       username: username,
@@ -30,7 +30,7 @@ export const register = async (
   });
 
 export const forgotPassword = email =>
-  unAuthAxiosCall('/user/forgot_password', {
+  unAuthAxiosCall('/user/auth/forgot_password', {
     method: 'POST',
     body: JSON.stringify({
       email,
@@ -39,7 +39,7 @@ export const forgotPassword = email =>
   });
 
 export const forgotPasswordConfirm = async (user, token) =>
-  unAuthAxiosCall('/user/forgot_password_confirm', {
+  unAuthAxiosCall('/user/auth/forgot_password_confirm', {
     method: 'POST',
     body: JSON.stringify({
       password: user.newPassword,
@@ -48,7 +48,7 @@ export const forgotPasswordConfirm = async (user, token) =>
   });
 
 export const checkValidationToken = async token =>
-  authAxiosCall('/user/forgot_password_checktoken', {
+  authAxiosCall('/user/auth/forgot_password_checktoken', {
     method: 'POST',
     body: JSON.stringify({
       token,

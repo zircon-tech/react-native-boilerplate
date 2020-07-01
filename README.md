@@ -43,7 +43,7 @@ Everything related to navigation within the application with an index containing
 
 ## Secrets (.env file)
 ```
-API_URL= SERVER URL WHERE API LIVE (example: localhost)
+API_URL= SERVER URL WHERE API LIVE (example: http://localhost:3000/api)
 API_PORT= SERVER PORT (example: 3000)
 API_KEY= SERVER KEY FOR HEADER SECURITY
 ```
